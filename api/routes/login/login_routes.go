@@ -1,7 +1,7 @@
 package login_routes
 
 import (
-	"metrics/controllers/login"
+	"gotemplate/controllers/login"
 	"net/http"
 )
 

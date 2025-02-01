@@ -4,9 +4,9 @@ import (
 	"encoding/base64"
 	"net/http"
 	"crypto/rand"
-    "metrics/templates"
-    "metrics/controllers/google_oauth"
-    "metrics/store"
+    "gotemplate/templates"
+    "gotemplate/controllers/google_oauth"
+    "gotemplate/store"
 )
 
 

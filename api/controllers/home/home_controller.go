@@ -1,7 +1,7 @@
 package home_controller
 
 import (
-    "metrics/templates"
+    "gotemplate/templates"
     "net/http"
 )
 

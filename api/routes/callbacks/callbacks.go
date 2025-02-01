@@ -1,7 +1,7 @@
 package callback_routes
 
 import (
-    "metrics/controllers/google_oauth"
+    "gotemplate/controllers/google_oauth"
     "net/http"
 )
 

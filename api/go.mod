@@ -1,4 +1,4 @@
-module metrics
+module gotemplate
 
 go 1.23
 

@@ -10,7 +10,9 @@
 
 ## Setup
 
+- Setup a new project in Google Cloud Console with consent screen & oauth credentials
 - Copy .env.sample files at root and in ./api to .env and fill out
+- Find and replace "gotemplate" with project name
 - Spin-up MySQL db in docker or any other way. Provided docker compose file will init mysql with whatever DB_NAME is in .env
 - run air or main.go to confirm things are happy
 - watch your sass ```sass --watch scss:static/css```

@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-    "metrics/store"
+    "gotemplate/store"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -123,7 +123,7 @@ func createToken(user *GoogleUser) (string, error) {
             ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
             IssuedAt: jwt.NewNumericDate(time.Now()),
             NotBefore: jwt.NewNumericDate(time.Now()),
-            Issuer: "crafty-metrics",
+            Issuer: "gotemplate",
             Subject: user.Email,
         },
     }

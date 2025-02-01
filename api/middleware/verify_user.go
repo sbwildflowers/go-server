@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"context"
-	"metrics/controllers/google_oauth"
-	"metrics/utils"
+	"gotemplate/controllers/google_oauth"
+	"gotemplate/utils"
 	"net/http"
 	"os"
 

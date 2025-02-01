@@ -2,7 +2,7 @@ package home_routes
 
 import (
 	"fmt"
-	"metrics/controllers/home"
+	"gotemplate/controllers/home"
 	"net/http"
 )
 
