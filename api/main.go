@@ -2,56 +2,54 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"gotemplate/controllers/google_oauth"
-    "gotemplate/database"
-	"gotemplate/middleware"
-	"gotemplate/routes/callbacks"
-	"gotemplate/routes/home"
-	"gotemplate/routes/login"
-	"net/http"
-    "os"
 	"github.com/joho/godotenv"
+	"gotemplate/controllers"
+	"gotemplate/database"
+	"gotemplate/middleware"
+	"gotemplate/routes"
+	"log"
+	"net/http"
+	"os"
 )
 
 func init() {
-    err := godotenv.Load()
-    if err != nil {
-        log.Fatal("Error loading .env file")
-    }
-    google_oauth_controller.InitConfig()
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	controllers.InitConfig()
 
-    err = database.ConnectToDatabase() 
-    if err != nil {
-        log.Fatal("Connection to DB failed")
-    }
+	err = database.ConnectToDatabase()
+	if err != nil {
+		log.Fatal("Connection to DB failed")
+	}
 }
 
 func main() {
-    router := http.NewServeMux()
+	router := http.NewServeMux()
 
-    // handle static resources
-    staticFs := http.FileServer(http.Dir("./static"))
-    router.Handle("GET /static/", http.StripPrefix("/static", staticFs))
+	// handle static resources
+	staticFs := http.FileServer(http.Dir("./static"))
+	router.Handle("GET /static/", http.StripPrefix("/static", staticFs))
 
-    // routes
-    pageRouter := http.NewServeMux()
-    home_routes.SetPageHandlers(pageRouter)
-    login_routes.SetPageHandlers(pageRouter)
-    callback_routes.SetPageHandlers(pageRouter)
+	// routes
+	pageRouter := http.NewServeMux()
+	routes.SetCallbackPageHandlers(pageRouter)
+	routes.SetLoginPageHandlers(pageRouter)
+	routes.SetHomePageHandlers(pageRouter)
 
-    stack := middleware.CreateMiddlewareStack(
-        middleware.VerifyUser,
-        middleware.Logging,
-    )
-    router.Handle("/", stack(pageRouter))
+	stack := middleware.CreateMiddlewareStack(
+		middleware.VerifyUser,
+		middleware.Logging,
+	)
+	router.Handle("/", stack(pageRouter))
 
-    // serve
-    port := os.Getenv("PORT")
-    server := http.Server{
-        Addr: fmt.Sprintf(":%s", port),
-        Handler: router, 
-    }
-    fmt.Println("Server listening on port", port)
-    server.ListenAndServe()
+	// serve
+	port := os.Getenv("PORT")
+	server := http.Server{
+		Addr:    fmt.Sprintf(":%s", port),
+		Handler: router,
+	}
+	fmt.Println("Server listening on port", port)
+	server.ListenAndServe()
 }
